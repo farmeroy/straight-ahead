@@ -23,24 +23,45 @@ def voice():
 def gather():
     # Start our TwinML response
     resp = VoiceResponse()
-    
-    # If the request already gathered digits, process them
-    if 'Digits' in request.values:
-        # get the digit
-        choice = request.values['Digits']
-        # conditionally <say> messages
-        if choice == '1':
-            resp.say('You will be redirected to fundraising')
-            return str(resp)
-        elif choice == '2':
-            resp.say('Please choose your region')
-            return str(resp)
-        else:
-            resp.say("I didn't understand your response.")
+    selected_option = request.values['Digits']
+    option_actions = {'1': '/fundraising',
+                      '2': '/organizing_menu',
+                      }
 
-    # If the user didn't choose 1 or 2 send back to /voice
+    if selected_option in option_actions:
+        response = VoiceResponse()
+        choice = option_actions[selected_option]
+        response.redirect(choice)
+        return str(response)
+
     resp.redirect('/voice')
 
+    return str(resp)
+   
+@app.route('/organizing_menu', methods=['GET', 'POST'])
+def organizing_menu():
+    resp = VoiceResponse()
+    resp.say('You have reached regional organizers menu.')
+    # selected_option = request.form['Digits']
+    # option_actions = {'1': western_press,
+    #                   '2': central_press,
+    #                   '3': south_eastern_press,
+    #                   '4': statewide_general_campaign_questions}
+
+    # if option_actions in selected_option:
+    #     response = VoiceResponse()
+    #     option_actions[selected_option](response)
+    #     return twiml(response)
+
+    resp.redirect('/voice')
+    return str(resp)
+
+@app.route('/fundraising', methods=['GET', 'POST'])
+def fundraising():
+    resp = VoiceResponse()
+    resp.say('You have reached fundraising')
+    
+    resp.redirect('/voice')
     return str(resp)
 
 
