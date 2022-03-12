@@ -1,5 +1,5 @@
 from flask import (
-         Blueprint, request,  url_for,
+         Blueprint, request, url_for,
         )
 from twilio.twiml.voice_response import VoiceResponse, Gather
 
@@ -13,7 +13,7 @@ def index():
     resp = VoiceResponse()
 
     # Start our <gather> verb
-    gather = Gather(num_digits=1, action='/gather')
+    gather = Gather(num_digits=1, action=url_for('welcome.gather'))
     gather.say('Welcome to Straight Ahead. To contact fundraising, press "1", to contact a regional organizer, press "2".')
     resp.append(gather)
 
@@ -27,8 +27,9 @@ def gather():
     # Start our TwinML response
     resp = VoiceResponse()
     selected_option = request.values['Digits']
-    option_actions = {'1': '/fundraising',
-                      '2': '/organizing_menu',
+    # define routes with url_for to ensure correct routing
+    option_actions = {'1': url_for('fundraising.menu'),
+                      '2': url_for('regional.menu'),
                       }
 
     if selected_option in option_actions:
