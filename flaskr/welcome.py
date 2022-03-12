@@ -4,7 +4,7 @@ from flask import (
 from twilio.twiml.voice_response import VoiceResponse, Gather
 
 # all routes in this blueprint are pre-pended with '/welcome'
-bp = Blueprint('welcome', __name__, url_prefix='/welcome')
+bp = Blueprint('welcome', __name__)
 
 @bp.route('/', methods=['GET', 'POST'])
 def index():
