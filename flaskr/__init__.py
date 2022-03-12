@@ -39,7 +39,7 @@ def create_app(test_config=None):
     from . import fundraising
     app.register_blueprint(fundraising.bp)
 
-    app.add_url_rule('/', endpoint='welcome.index')
+    app.add_url_rule('/', endpoint='index')
 
     return app
 
