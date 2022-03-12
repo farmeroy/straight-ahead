@@ -1,6 +1,23 @@
 # Straight Ahead
 A Twilio call service built with Python
 
+To run this app locally:
+- set up a twilio trial account
+- find a number that can accept calls
+- download this code
+- create environmental variables
+```
+export FLASK_APP=flaskr
+export FLASK_ENV=development
+```
+- start the server:
+`
+flask run
+`
+- start ngrok
+- copy the ngrok url and paste it into your Twilio number's webhook field
+
+
 ## User Stories and Gehrkins 
 
 ### As a user I can reach my legal aid team from prison
