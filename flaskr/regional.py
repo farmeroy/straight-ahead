@@ -7,7 +7,9 @@ from dotenv import load_dotenv
 load_dotenv()    
 
 EASTERN_ORG_PHONE = os.getenv('EASTERN_ORG_PHONE')
- 
+WESTERN_ORG_PHONE = os.getenv('WESTERN_ORG_PHONE')
+CENTRAL_ORG_PHONE = os.getenv('CENTRAL_ORG_PHONE')
+STATEWIDE_ORG_PHONE = os.getenv('STATEWIDE_ORG_PHONE')
 
 # all routes in this blueprint are pre-pended with '/welcome'
 bp = Blueprint('regional', __name__, url_prefix='/regional')
@@ -60,6 +62,7 @@ def gather():
 def statewide():
     resp = VoiceResponse()
     resp.say('You have reached statewide PA organizers')
+    resp.dial(STATEWIDE_ORG_PHONE)
     resp.redirect(url_for('welcome.index'))
     
     return str(resp)
@@ -68,6 +71,7 @@ def statewide():
 def western():
     resp = VoiceResponse()
     resp.say('You have reached western PA organizers')
+    resp.dial(WESTERN_ORG_PHONE)
     resp.redirect(url_for('welcome.index'))
     
     return str(resp)
@@ -76,6 +80,7 @@ def western():
 def central():
     resp = VoiceResponse()
     resp.say('You have reached central PA organizers')
+    resp.dial(CENTRAL_ORG_PHONE)
     resp.redirect(url_for('welcome.index'))
     
     return str(resp)
