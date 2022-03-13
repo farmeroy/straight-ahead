@@ -1,10 +1,11 @@
 from flask import (
-         Blueprint, request, url_for,
-        )
+    Blueprint, request, url_for,
+)
 from twilio.twiml.voice_response import VoiceResponse, Gather
 
-# all routes in this blueprint are pre-pended with '/welcome'
+# No url_prefix is set, so this is the root directory of our API 
 bp = Blueprint('welcome', __name__)
+
 
 @bp.route('/', methods=['GET', 'POST'])
 def index():
@@ -14,13 +15,15 @@ def index():
 
     # Start our <gather> verb
     gather = Gather(num_digits=1, action=url_for('welcome.gather'))
-    gather.say('Welcome to Straight Ahead. To contact fundraising, press "1", to contact a regional organizer, press "2".')
+    gather.say(
+        'Welcome to Straight Ahead. To contact fundraising, press "1", to contact a regional organizer, press "2".')
     resp.append(gather)
 
     # If the user doesn't select an option, redirect
     resp.redirect(url_for('welcome.index'))
 
     return str(resp)
+
 
 @bp.route("/gather", methods=['GET', 'POST'])
 def gather():
