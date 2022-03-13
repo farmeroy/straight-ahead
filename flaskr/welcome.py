@@ -3,7 +3,7 @@ from flask import (
         )
 from twilio.twiml.voice_response import VoiceResponse, Gather
 
-# all routes in this blueprint are pre-pended with '/welcome'
+# No url_prefix is set, so this is the root directory of our API 
 bp = Blueprint('welcome', __name__)
 
 @bp.route('/', methods=['GET', 'POST'])
