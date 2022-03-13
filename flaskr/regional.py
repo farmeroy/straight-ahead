@@ -2,6 +2,12 @@ from flask import (
          Blueprint, request,  url_for,
         )
 from twilio.twiml.voice_response import VoiceResponse, Gather
+import os    
+from dotenv import load_dotenv    
+load_dotenv()    
+
+EASTERN_ORG_PHONE = os.getenv('EASTERN_ORG_PHONE')
+ 
 
 # all routes in this blueprint are pre-pended with '/welcome'
 bp = Blueprint('regional', __name__, url_prefix='/regional')
@@ -77,7 +83,8 @@ def central():
 @bp.route('/south_eastern', methods=['GET', 'POST'])
 def south_eastern():
     resp = VoiceResponse()
-    resp.say('You have reached south eastern PA organizers')
+    resp.say('Your call is being forwarded to the contact for South Eastern Pennsylvania.')
+    resp.dial(EASTERN_ORG_PHONE)
     resp.redirect(url_for('welcome.index'))
     
     return str(resp)
