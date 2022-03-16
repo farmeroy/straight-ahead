@@ -1,10 +1,20 @@
 from flask import (
-         Blueprint, request,  url_for,
-        )
+    Blueprint, request, url_for,
+)
 from twilio.twiml.voice_response import VoiceResponse, Gather
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+EASTERN_ORG_PHONE = os.getenv('EASTERN_ORG_PHONE')
+WESTERN_ORG_PHONE = os.getenv('WESTERN_ORG_PHONE')
+CENTRAL_ORG_PHONE = os.getenv('CENTRAL_ORG_PHONE')
+STATEWIDE_ORG_PHONE = os.getenv('STATEWIDE_ORG_PHONE')
 
 # all routes in this blueprint are pre-pended with '/welcome'
 bp = Blueprint('regional', __name__, url_prefix='/regional')
+
 
 @bp.route('/menu', methods=['GET', 'POST'])
 def menu():
@@ -14,12 +24,12 @@ def menu():
     # Start our <gather> verb
     gather = Gather(num_digits=1, action=url_for('regional.gather'))
     gather.say('You have reached regional organizers menu,'
-            ' press "1" for statewide campaign questions,'
-            ' press "2" for western Pennsylvania,'
-            ' press 3 for central Pennsylvania, '
-            ' press 4 for south easter Pennsylvania'
-            ' press 5 to return to the main menu.'
-            )
+               ' press "1" for statewide campaign questions,'
+               ' press "2" for western Pennsylvania,'
+               ' press 3 for central Pennsylvania, '
+               ' press 4 for south easter Pennsylvania'
+               ' press 5 to return to the main menu.'
+               )
     resp.append(gather)
 
     # If the user doesn't select an option, redirect
@@ -50,36 +60,42 @@ def gather():
 
     return str(resp)
 
+
 @bp.route('/statewide', methods=['GET', 'POST'])
 def statewide():
     resp = VoiceResponse()
     resp.say('You have reached statewide PA organizers')
+    resp.dial(STATEWIDE_ORG_PHONE)
     resp.redirect(url_for('welcome.index'))
-    
+
     return str(resp)
+
 
 @bp.route('/western', methods=['GET', 'POST'])
 def western():
     resp = VoiceResponse()
     resp.say('You have reached western PA organizers')
+    resp.dial(WESTERN_ORG_PHONE)
     resp.redirect(url_for('welcome.index'))
-    
+
     return str(resp)
+
 
 @bp.route('/central', methods=['GET', 'POST'])
 def central():
     resp = VoiceResponse()
     resp.say('You have reached central PA organizers')
+    resp.dial(CENTRAL_ORG_PHONE)
     resp.redirect(url_for('welcome.index'))
-    
+
     return str(resp)
+
 
 @bp.route('/south_eastern', methods=['GET', 'POST'])
 def south_eastern():
     resp = VoiceResponse()
-    resp.say('You have reached south eastern PA organizers')
+    resp.say('Your call is being forwarded to the contact for South Eastern Pennsylvania.')
+    resp.dial(EASTERN_ORG_PHONE)
     resp.redirect(url_for('welcome.index'))
-    
+
     return str(resp)
-
-
