@@ -7,7 +7,7 @@ To run this app locally:
 - download this code
 - create environmental variables
 ```
-export FLASK_APP=straight-ahead-hotline
+export FLASK_APP=straight_ahead_hotline
 export FLASK_ENV=development
 ```
 - start the server:
