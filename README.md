@@ -4,7 +4,7 @@ A Twilio phone tree built with Python
 To run this app locally:
 - set up a Twilio trial account [here](https://www.twilio.com/try-twilio)
 - find a number that can accept calls
-- download this code `git clone https://github.com/farmeroy/straight-ahead.git`
+- download this code ```git clone https://github.com/farmeroy/straight-ahead.git```
 - create environmental variables
 ```
 export FLASK_APP=straight_ahead_hotline
