@@ -36,6 +36,22 @@ flask run
 
 If you don't have ngrok, download it [here](https://ngrok.com/download). Ngrok is a service that temporarily serves your code on a real server.
 
+Now you can call your Twilio number and use the hotline!
+
+If you would like to use this as a template to deploy your own hotline, you can deploy to [python anywhere](www.pythonanywhere.com).
+Follow the deployment instructions from [python anywhere flask deployment](https://help.pythonanywhere.com/pages/Flask/) as well as the offical [Flask deployment instructions](https://flask.palletsprojects.com/en/2.1.x/tutorial/deploy/) to set up a Secret Key.
+The only difference from the python anywhere instructions is that the `wsgi.py` file should be set up as follows:
+To set up the wsgi.py file, use:
+```
+import sys
+path = '<your file path>'
+if path not in sys.path:
+    sys.path.append(path)
+
+from straight_ahead_hotline import create_app
+application = create_app()
+```
+
 
 ## User Stories and Gehrkins 
 
