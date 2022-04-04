@@ -1,8 +1,8 @@
 # Straight Ahead
-A Twilio call service built with Python
+A Twilio phone tree built with Python
 
 To run this app locally:
-- set up a twilio trial account
+- set up a Twilio trial account [here](https://www.twilio.com/try-twilio)
 - find a number that can accept calls
 - download this code
 - create environmental variables
@@ -10,12 +10,27 @@ To run this app locally:
 export FLASK_APP=straight_ahead_hotline
 export FLASK_ENV=development
 ```
+- set up a virtual environment
+```
+python3 -m venv venv
+source ./venv/bin/activate
+```
+- install the requirements:
+```
+pip install -r requirements
+```
+- install the straight_ahead_hotline package:
+```
+pip install -e .
+```
 - start the server:
 `
 flask run
 `
 - start ngrok
 - copy the ngrok url and paste it into your Twilio number's webhook field
+
+If you don't have ngrok, download it [here](https://ngrok.com/download). Ngrok is a service that temporarily serves your code on a real server.
 
 
 ## User Stories and Gehrkins 
