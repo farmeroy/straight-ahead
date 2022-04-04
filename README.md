@@ -13,6 +13,7 @@ git clone https://github.com/farmeroy/straight-ahead.git
 export FLASK_APP=straight_ahead_hotline
 export FLASK_ENV=development
 ```
+- create a `.env` file that contains your twilio account sid, twilio auth token, along with any forwarding numbers you would like to use (see `.env.example`)
 - set up a virtual environment
 ```
 python3 -m venv venv
