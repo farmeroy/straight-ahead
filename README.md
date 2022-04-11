@@ -1,14 +1,31 @@
 # Straight Ahead
-A Twilio call service built with Python
+A Twilio phone tree built with Python
 
 To run this app locally:
-- set up a twilio trial account
+- set up a Twilio trial account [here](https://www.twilio.com/try-twilio)
 - find a number that can accept calls
-- download this code
+- download this code 
+```
+git clone https://github.com/farmeroy/straight-ahead.git
+```
 - create environmental variables
 ```
-export FLASK_APP=flaskr
+export FLASK_APP=straight_ahead_hotline
 export FLASK_ENV=development
+```
+- create a `.env` file that contains your twilio account sid, twilio auth token, along with any forwarding numbers you would like to use (see `.env.example`)
+- set up a virtual environment
+```
+python3 -m venv venv
+source ./venv/bin/activate
+```
+- install the requirements:
+```
+pip install -r requirements.txt
+```
+- install the straight_ahead_hotline package:
+```
+pip install -e .
 ```
 - start the server:
 `
@@ -16,6 +33,24 @@ flask run
 `
 - start ngrok
 - copy the ngrok url and paste it into your Twilio number's webhook field
+
+If you don't have ngrok, download it [here](https://ngrok.com/download). Ngrok is a service that temporarily serves your code on a real server.
+
+Now you can call your Twilio number and use the hotline!
+
+If you would like to use this as a template to deploy your own hotline, you can deploy to [python anywhere](www.pythonanywhere.com).
+Follow the deployment instructions from [python anywhere flask deployment](https://help.pythonanywhere.com/pages/Flask/) as well as the offical [Flask deployment instructions](https://flask.palletsprojects.com/en/2.1.x/tutorial/deploy/) to set up a Secret Key.
+The only difference from the python anywhere instructions is that the `wsgi.py` file should be set up as follows:
+To set up the wsgi.py file, use:
+```
+import sys
+path = '<your file path>'
+if path not in sys.path:
+    sys.path.append(path)
+
+from straight_ahead_hotline import create_app
+application = create_app()
+```
 
 
 ## User Stories and Gehrkins 
