@@ -33,6 +33,8 @@ def gather():
     # define routes with url_for to ensure correct routing
     option_actions = {'1': url_for('fundraising.menu'),
                       '2': url_for('regional.menu'),
+                      '3': url_for('press_request.menu'),
+                      '4': url_for('spanish.menu'),
                       }
 
     if selected_option in option_actions:
